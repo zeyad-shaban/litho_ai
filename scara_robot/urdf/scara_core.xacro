@@ -2,27 +2,96 @@
 
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
     <!-- Properties -->
-     <xacro:property name="base_lx" value="0.5" />
-     <xacro:property name="base_ly" value="0.5" />
-     <xacro:property name="base_lz" value="0.2" />
+    <xacro:property name="base_lx" value="0.5" />
+    <xacro:property name="base_ly" value="0.5" />
+    <xacro:property name="base_lz" value="0.2" />
+
+    <xacro:property name="column1_lx" value="0.2" />
+    <xacro:property name="column1_ly" value="0.3" />
+    <xacro:property name="column1_lz" value="0.7" />
+
+    <xacro:property name="carriage1_lx" value="0.1" />
+    <xacro:property name="carriage1_ly" value="${column1_ly}" />
+    <xacro:property name="carriage1_lz" value="0.15" />
     
+    <xacro:property name="shoulder_lx" value="0.45" />
+    <xacro:property name="shoulder_ly" value="0.2" />
+    <xacro:property name="shoulder_lz" value="0.15" />
+
+
+    <!-- Base -->
     <link name="base_footprint" />
     <link name="base_link">
         <visual>
             <geometry>
-                <box size="${base_lx} ${base_ly} ${base_lz}"/>
+                <box size="${base_lx} ${base_ly} ${base_lz}" />
             </geometry>
-            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <material name="blue" />
         </visual>
-        
+
         <!-- Todo collision -->
-        <!-- todo Inertial -->
+    </link>
+
+    <joint name="footprint_base_joint" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <origin xyz="0 0.0 0.0" rpy="0.0 0.0 0.0" />
+    </joint>
+
+    <!-- Column 1 link -->
+    <link name="column1_link">
+        <visual>
+            <geometry>
+                <box size="${column1_lx} ${column1_ly} ${column1_lz}" />
+            </geometry>
+            <origin xyz="0 0 ${column1_lz / 2}" rpy="0 0 0" />
+            <material name="red" />
+        </visual>
+    </link>
+
+    <joint name="base_column1_joint" type="fixed">
+        <origin xyz="0 0 ${base_lz / 2}" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="column1_link" />
+    </joint>
+
+    <link name="carriage1_link">
+        <visual>
+            <origin xyz="${carriage1_lx / 2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <box size="${carriage1_lx} ${carriage1_ly} ${carriage1_lz}" />
+            </geometry>
+            <material name="grey" />
+        </visual>
+    </link>
+
+    <joint name="column1_carriage1_joint" type="prismatic">
+        <origin xyz="${carriage1_lx} 0 0" rpy="0 0 0" />
+        <parent link="column1_link" />
+        <child link="carriage1_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="${carriage1_lz / 2}" upper="${column1_lz - carriage1_lz / 2}" effort="100.0"
+            velocity="0.1" />
+    </joint>
+
+    <!-- Shoulder -->
+    <link name="shoulder_link">
+        <visual>
+            <geometry>
+                <box size="${shoulder_lx} ${shoulder_ly} ${shoulder_lz}" />
+            </geometry>
+            <material name="yellow" />
+            <origin xyz="${shoulder_lx / 2} 0 0" rpy="0 0 0"/>
+        </visual>
     </link>
     
-    <joint name="base_footprint_joint" type="fixed">
-        <parent link="base_footprint"/>
-        <child link="base_link"/>
-        <origin xyz="0 0.0 0.0" rpy="0.0 0.0 0.0"/>
+    <joint name="carriage1_shoulder_joint" type="revolute">
+        <origin xyz="${carriage1_lx / 2} 0 0" rpy="0 0 0"/>
+        <parent link="carriage1_link"/>
+        <child link="shoulder_link"/>
+        <axis xyz="0 0 1"/>
+        <limit lower="${-pi/2}" upper="${pi/2}" effort="100" velocity="${pi}"/>
     </joint>
     
 </robot>

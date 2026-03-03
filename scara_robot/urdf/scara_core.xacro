@@ -13,10 +13,17 @@
     <xacro:property name="carriage1_lx" value="0.1" />
     <xacro:property name="carriage1_ly" value="${column1_ly}" />
     <xacro:property name="carriage1_lz" value="0.15" />
+
+    <xacro:property name="shoulder_lx" value="0.55" />
+    <xacro:property name="shoulder_ly" value="0.15" />
+    <xacro:property name="shoulder_lz" value="0.1" />
+
+    <xacro:property name="elbow_lx" value="0.4" />
+    <xacro:property name="elbow_ly" value="0.15" />
+    <xacro:property name="elbow_lz" value="0.1" />
     
-    <xacro:property name="shoulder_lx" value="0.45" />
-    <xacro:property name="shoulder_ly" value="0.2" />
-    <xacro:property name="shoulder_lz" value="0.15" />
+    <xacro:property name="ef_rad" value="0.05" />
+    <xacro:property name="ef_len" value="0.1" />
 
 
     <!-- Base -->
@@ -82,16 +89,53 @@
                 <box size="${shoulder_lx} ${shoulder_ly} ${shoulder_lz}" />
             </geometry>
             <material name="yellow" />
-            <origin xyz="${shoulder_lx / 2} 0 0" rpy="0 0 0"/>
+            <origin xyz="${shoulder_lx / 2} 0 0" rpy="0 0 0" />
         </visual>
     </link>
-    
+
     <joint name="carriage1_shoulder_joint" type="revolute">
-        <origin xyz="${carriage1_lx / 2} 0 0" rpy="0 0 0"/>
-        <parent link="carriage1_link"/>
-        <child link="shoulder_link"/>
-        <axis xyz="0 0 1"/>
-        <limit lower="${-pi/2}" upper="${pi/2}" effort="100" velocity="${pi}"/>
+        <origin xyz="${carriage1_lx / 2} 0 0" rpy="0 0 0" />
+        <parent link="carriage1_link" />
+        <child link="shoulder_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="100" velocity="${pi}" />
+    </joint>
+
+    <!-- Elbow -->
+    <link name="elbow_link">
+        <visual>
+            <geometry>
+                <box size="${elbow_lx} ${elbow_ly} ${elbow_lz}" />
+            </geometry>
+            <origin xyz="${elbow_lx / 2} 0 0" rpy="0 0 0" />
+            <material name="magenta" />
+        </visual>
+    </link>
+
+    <joint name="shoulder_elbow_joint" type="revolute">
+        <origin xyz="${shoulder_lx} 0 0" rpy="0 0 0" />
+        <parent link="shoulder_link" />
+        <child link="elbow_link" />
+        <axis xyz="0 0 1" />
+        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="100" velocity="${pi}" />
     </joint>
     
+    <!-- End Effector -->
+     <link name="ef_link">
+        <visual>
+            <geometry>
+                <cylinder radius="${ef_rad}" length="${ef_len}"/>
+            </geometry>
+            <origin xyz="0 0 -${ef_len / 2}" rpy="0 0 0"/>
+            <material name="orange" />
+        </visual>
+     </link>
+     
+    <joint name="elbow_ef_joint" type="fixed">
+        <origin xyz="${elbow_lx - ef_rad} 0 -${ef_len / 2}" rpy="0.0 0.0 0.0"/>
+        <parent link="elbow_link"/>
+        <child link="ef_link"/>
+    </joint>
+    
+    <!-- Todo Gripper -->
 </robot>

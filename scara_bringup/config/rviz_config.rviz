@@ -83,6 +83,16 @@ Visualization Manager:
           Show Axes: false
           Show Trail: false
           Value: true
+        ef_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        elbow_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
         shoulder_link:
           Alpha: 1
           Show Axes: false
@@ -111,6 +121,10 @@ Visualization Manager:
           Value: true
         column1_link:
           Value: true
+        ef_link:
+          Value: true
+        elbow_link:
+          Value: true
         shoulder_link:
           Value: true
       Marker Scale: 1
@@ -124,7 +138,9 @@ Visualization Manager:
             column1_link:
               carriage1_link:
                 shoulder_link:
-                  {}
+                  elbow_link:
+                    ef_link:
+                      {}
       Update Interval: 0
       Value: true
   Enabled: true
@@ -173,25 +189,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz_default_plugins/Orbit
-      Distance: 2.03381609916687
+      Distance: 0.9351003766059875
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0
-        Y: 0
-        Z: 0
+        X: 0.8766041398048401
+        Y: 0.25857073068618774
+        Z: 0.17987214028835297
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6903980374336243
+      Pitch: 0.4853978753089905
       Target Frame: <Fixed Frame>
       Value: Orbit (rviz)
-      Yaw: 4.6885833740234375
+      Yaw: 5.063577651977539
     Saved: ~
 Window Geometry:
   Displays:
@@ -209,5 +225,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1200
-  X: 264
-  Y: -18
+  X: 406
+  Y: -26

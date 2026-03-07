@@ -1,18 +1,22 @@
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
 from launch.actions import RegisterEventHandler
+from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
 from launch.substitutions import Command, FindExecutable, LaunchConfiguration, PathJoinSubstitution
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+import os
 
 
 def generate_launch_description():
     # Launch Arguments
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
     gz_args = LaunchConfiguration('gz_args', default='')
+    use_rviz = LaunchConfiguration('use_rviz', default='false')
     
 
     # Get URDF via xacro
@@ -25,7 +29,8 @@ def generate_launch_description():
     )
     
     robot_controllers = PathJoinSubstitution( [ FindPackageShare('scara_bringup'), 'config', 'controllers.yaml'])
-    world_path = "empty.sdf" # PathJoinSubstitution([FindPackageShare('scara_bringup'), 'worlds', 'my_world.sdf'])
+    world_path = PathJoinSubstitution([FindPackageShare('scara_bringup'), 'worlds', 'my_world.sdf'])
+    rviz_config_path = os.path.join(get_package_share_directory('scara_bringup'), 'config', 'rviz_gz_config.rviz')
 
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -94,4 +99,11 @@ def generate_launch_description():
             'use_sim_time',
             default_value=use_sim_time,
             description='If true, use simulated clock'),
+        
+        Node(
+            package='rviz2',
+            executable='rviz2',
+            arguments=['-d', rviz_config_path],
+            condition=IfCondition(LaunchConfiguration('use_rviz'))
+        )
     ])

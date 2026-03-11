@@ -115,7 +115,7 @@
         <parent link="column1_link" />
         <child link="carriage1_link" />
         <axis xyz="0 0 1" />
-        <limit lower="${carriage1_lz / 2}" upper="${column1_lz - carriage1_lz / 2}" effort="100.0"
+        <limit lower="${carriage1_lz / 2}" upper="${column1_lz - carriage1_lz / 2}" effort="500.0"
             velocity="0.1" />
     </joint>
 
@@ -146,7 +146,7 @@
         <parent link="carriage1_link" />
         <child link="shoulder_link" />
         <axis xyz="0 0 1" />
-        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="100" velocity="${pi}" />
+        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="500" velocity="${pi}" />
     </joint>
 
     <!-- Elbow -->
@@ -176,7 +176,7 @@
         <parent link="shoulder_link" />
         <child link="elbow_link" />
         <axis xyz="0 0 1" />
-        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="100" velocity="${pi}" />
+        <limit lower="${-pi * 0.9}" upper="${pi * 0.9}" effort="500" velocity="${pi}" />
     </joint>
 
     <!-- End Effector -->

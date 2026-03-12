@@ -19,6 +19,7 @@
             <child_link>wafer_link</child_link>  
             <attach_topic>/vacuum/attach</attach_topic>  
             <detach_topic>/vacuum/detach</detach_topic>  
+            <detach_on_start>true</detach_on_start>
         </plugin>  
     </gazebo>
 

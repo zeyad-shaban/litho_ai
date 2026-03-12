@@ -31,6 +31,7 @@ def generate_launch_description():
     robot_controllers = PathJoinSubstitution( [ FindPackageShare('scara_bringup'), 'config', 'controllers.yaml'])
     world_path = PathJoinSubstitution([FindPackageShare('scara_bringup'), 'worlds', 'my_world.sdf'])
     rviz_config_path = os.path.join(get_package_share_directory('scara_bringup'), 'config', 'rviz_gz_config.rviz')
+    bridge_config = PathJoinSubstitution([FindPackageShare('scara_bringup'), 'config', 'bridge.yaml'])
 
     node_robot_state_publisher = Node(
         package='robot_state_publisher',
@@ -63,16 +64,11 @@ def generate_launch_description():
         ],
     )
 
-    # todo clean the bridge
     bridge = Node(
         package='ros_gz_bridge',
         executable='parameter_bridge',
-        arguments=[
-            '/clock@rosgraph_msgs/msg/Clock[gz.msgs.Clock',
-            '/vacuum/attach@std_msgs/msg/Empty]gz.msgs.Empty',
-            '/vacuum/detach@std_msgs/msg/Empty]gz.msgs.Empty',
-        ],
-        output='screen'
+        parameters=[{'config_file': bridge_config}],
+        output='screen',
     )
 
     return LaunchDescription([

@@ -1,5 +1,5 @@
 import numpy as np
-
+from sensor_msgs.msg import JointState
 
 SHOULDER_LEN = 0.55
 ELBOW_LEN = 0.4
@@ -19,3 +19,7 @@ def compute_joint_corrections(theta1, theta2, dx, dy):
     dthetas = J_inv @ dpos
     
     return dthetas
+    
+def get_joint_pos(msg: JointState, joint_name: str):
+    idx = msg.name.index(joint_name)
+    return msg.position[idx]

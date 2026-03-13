@@ -18,7 +18,7 @@ class EyesNode(Node):
         self.show_debug_img = self.get_parameter('show_debug_img').value
         
         self.img_sub = self.create_subscription(Image, '/camera/image', self.image_callback, 10)
-        self.alignment_pub = self.create_publisher(Vector3, 'wafer_align_vec', 10)
+        self.alignment_pub = self.create_publisher(Vector3, 'wafer/align_vec', 10)
         
     def image_callback(self, msg: Image):
         frame = imgmsg_to_cv2(msg)
@@ -42,9 +42,9 @@ class EyesNode(Node):
         
         if circles is not None:
             circles = np.uint16(np.around(circles)) # type: ignore
-            cx_wafer, cy_wafer, radius_px = circles[0][0]  # best circle
+            cx_wafer, cy_wafer, radius_px = circles[0][0].astype(np.int16)  # best circle
             
-            align_vec_px = np.array([cx_img - cx_wafer, cy_img - cy_wafer], dtype=np.float64)
+            align_vec_px = np.array([cx_wafer - cx_img, -(cy_wafer - cy_img)], dtype=np.int16)
             align_vec_meters = align_vec_px * (WAFER_RADIUS_METERS / radius_px)
             
             align_vec_msg = Vector3()

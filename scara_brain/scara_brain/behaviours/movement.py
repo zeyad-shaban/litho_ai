@@ -81,6 +81,7 @@ class GoDown(py_trees.behaviour.Behaviour):
         self._station = station
         
         self._result = None
+        self._goal_sent = False
     
     def initialise(self) -> None:
         self.node.get_logger().info(f"Starting {self.name}...")
@@ -94,9 +95,12 @@ class GoDown(py_trees.behaviour.Behaviour):
             
         
     def _joint_states_callback(self, msg: JointState):
+        if self._goal_sent:
+            return
+        self._goal_sent = True
+        
         shoulder_pos = get_joint_pos(msg,SHOULDER_JOINT_NAME)
         elbow_pos = get_joint_pos(msg, ELBOW_JOINT_NAME)
-        self.joint_sub.destroy()
         
         self._wait_for_act_server()
         
@@ -145,6 +149,7 @@ class GoUp(py_trees.behaviour.Behaviour):
         self._station = station
         
         self._result = None
+        self._goal_sent = False
     
     def initialise(self) -> None:
         self.node.get_logger().info(f"Starting {self.name}...")
@@ -156,8 +161,11 @@ class GoUp(py_trees.behaviour.Behaviour):
             
         return Status.SUCCESS
             
-        
     def _joint_states_callback(self, msg: JointState):
+        if self._goal_sent:
+            return
+        self._goal_sent = True
+        
         shoulder_pos = get_joint_pos(msg,SHOULDER_JOINT_NAME)
         elbow_pos = get_joint_pos(msg, ELBOW_JOINT_NAME)
         self.joint_sub.destroy()

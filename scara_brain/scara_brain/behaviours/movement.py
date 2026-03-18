@@ -108,7 +108,7 @@ class ChangeHeight(py_trees.behaviour.Behaviour):
         fut = self._act_client.send_goal_async(goal)
         fut.add_done_callback(self._goal_response_cb)
         
-        self.node.get_logger().info(f"Starting alignment movement")
+        self.node.get_logger().info(f"{self.name} Started changing height movement")
         
     def _goal_response_cb(self, fut):
         goal_handle: ClientGoalHandle = fut.result()
@@ -188,7 +188,7 @@ class AlignmentBehaviour(py_trees.behaviour.Behaviour):
         fut = self._act_client.send_goal_async(goal)
         fut.add_done_callback(self._goal_response_cb)
         
-        self.node.get_logger().info(f"Starting alignment movement")
+        self.node.get_logger().info(f"{self.name} Started alignment movement")
         
     def _goal_response_cb(self, fut):
         goal_handle: ClientGoalHandle = fut.result()

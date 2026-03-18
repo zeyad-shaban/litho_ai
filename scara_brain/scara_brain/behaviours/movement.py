@@ -6,22 +6,14 @@ from scara_brain.modules.station import Station
 from rclpy.node import Node
 from geometry_msgs.msg import Vector3
 import numpy as np
-from scara_brain.utils.arm_movement import compute_joint_corrections, get_joint_pos
+from scara_brain.constants import CARRAIGE_JOINT_NAME, ELBOW_JOINT_NAME, JOINT_NAMES, MOVEMENT_DURATION, SHOULDER_JOINT_NAME
+from scara_brain.utils.arm_movement import build_goal, compute_joint_corrections, get_joint_pos
 from sensor_msgs.msg import JointState
 
 from control_msgs.action import FollowJointTrajectory
 from control_msgs.msg import JointTolerance
 from trajectory_msgs.msg import JointTrajectoryPoint
 from builtin_interfaces.msg import Duration
-
-
-
-# todo put those in better po
-SHOULDER_JOINT_NAME =  'carriage1_shoulder_joint'
-ELBOW_JOINT_NAME =  'shoulder_elbow_joint'
-CARRAIGE_JOINT_NAME = 'column1_carriage1_joint'
-MOVEMENT_DURATION = 1
-
 
 class MoveToStation(py_trees.behaviour.Behaviour):
     def __init__(self, name: str, station: Station, is_mid: bool, act_client: ActionClient, logger: RcutilsLogger):
@@ -71,14 +63,16 @@ class MoveToStation(py_trees.behaviour.Behaviour):
     def _wait_for_act_server(self):
         while not self.act_client.wait_for_server(1):
             self.logger.info("Waiting for action client...")
-            
-class GoDown(py_trees.behaviour.Behaviour):
-    def __init__(self, name: str, node: Node, station: Station, act_client):
+
+
+class ChangeHeight(py_trees.behaviour.Behaviour):
+    def __init__(self, name: str, node: Node, station: Station, act_client, go_down: bool):
         super().__init__(name)
         
         self.node = node
         self._act_client = act_client
         self._station = station
+        self._go_down = go_down
         
         self._result = None
         self._goal_sent = False
@@ -104,16 +98,12 @@ class GoDown(py_trees.behaviour.Behaviour):
         
         self._wait_for_act_server()
         
-        goal = FollowJointTrajectory.Goal()
-        goal.trajectory.joint_names = [CARRAIGE_JOINT_NAME, SHOULDER_JOINT_NAME, ELBOW_JOINT_NAME]
-        
-        goal.trajectory.points = [JointTrajectoryPoint(
-            positions=[self._station.pick_height, shoulder_pos, elbow_pos],
-            time_from_start=Duration(sec=MOVEMENT_DURATION)
-        )]
-        
-        goal.goal_tolerance = [JointTolerance(name=name, position=0.01) for name in Station.joint_names]
-        # goal.goal_time_tolerance = Duration(sec=2)
+        positions = [
+            self._station.pick_height if self._go_down else self._station.mid_height,
+            shoulder_pos,
+            elbow_pos,
+        ]
+        goal = build_goal(JOINT_NAMES, positions, MOVEMENT_DURATION, pos_tolerance=0.01)
         
         fut = self._act_client.send_goal_async(goal)
         fut.add_done_callback(self._goal_response_cb)
@@ -133,80 +123,9 @@ class GoDown(py_trees.behaviour.Behaviour):
     def _result_cb(self, fut):
         self._result = fut.result()
         
-        
-        
     def _wait_for_act_server(self):
         while not self._act_client.wait_for_server(1):
             self.logger.info("Waiting for action client...")
-        
-        
-class GoUp(py_trees.behaviour.Behaviour):
-    def __init__(self, name: str, node: Node, station: Station, act_client):
-        super().__init__(name)
-        
-        self.node = node
-        self._act_client = act_client
-        self._station = station
-        
-        self._result = None
-        self._goal_sent = False
-    
-    def initialise(self) -> None:
-        self.node.get_logger().info(f"Starting {self.name}...")
-        self.joint_sub = self.node.create_subscription(JointState, '/joint_states', self._joint_states_callback, 10)
-    
-    def update(self):
-        if self._result is None:
-            return Status.RUNNING
-            
-        return Status.SUCCESS
-            
-    def _joint_states_callback(self, msg: JointState):
-        if self._goal_sent:
-            return
-        self._goal_sent = True
-        
-        shoulder_pos = get_joint_pos(msg,SHOULDER_JOINT_NAME)
-        elbow_pos = get_joint_pos(msg, ELBOW_JOINT_NAME)
-        
-        self._wait_for_act_server()
-        
-        goal = FollowJointTrajectory.Goal()
-        goal.trajectory.joint_names = [CARRAIGE_JOINT_NAME, SHOULDER_JOINT_NAME, ELBOW_JOINT_NAME]
-        
-        goal.trajectory.points = [JointTrajectoryPoint(
-            positions=[self._station.mid_height, shoulder_pos, elbow_pos],
-            time_from_start=Duration(sec=MOVEMENT_DURATION)
-        )]
-        
-        goal.goal_tolerance = [JointTolerance(name=name, position=0.01) for name in Station.joint_names]
-        # goal.goal_time_tolerance = Duration(sec=2)
-        
-        fut = self._act_client.send_goal_async(goal)
-        fut.add_done_callback(self._goal_response_cb)
-        
-        self.node.get_logger().info(f"Starting alignment movement")
-        
-    def _goal_response_cb(self, fut):
-        goal_handle: ClientGoalHandle = fut.result()
-        
-        if not goal_handle.accepted:
-            self.node.get_logger().warning("Goal rejected...") # todo make this a failure
-            return
-        
-        result_fut = goal_handle.get_result_async()
-        result_fut.add_done_callback(self._result_cb)
-        
-    def _result_cb(self, fut):
-        self._result = fut.result()
-        
-        
-        
-    def _wait_for_act_server(self):
-        while not self._act_client.wait_for_server(1):
-            self.logger.info("Waiting for action client...")
-        
-        
             
 class AlignmentBehaviour(py_trees.behaviour.Behaviour):
     def __init__(self, name, node: Node, act_client, allowed_thresh_meters=0.01):
@@ -263,16 +182,8 @@ class AlignmentBehaviour(py_trees.behaviour.Behaviour):
         
         self._wait_for_act_server()
         
-        goal = FollowJointTrajectory.Goal()
-        goal.trajectory.joint_names = [CARRAIGE_JOINT_NAME, SHOULDER_JOINT_NAME, ELBOW_JOINT_NAME]
-        
-        goal.trajectory.points = [JointTrajectoryPoint(
-            positions=[self._z_pos, new_shoulder, new_elbow],
-            time_from_start=Duration(sec=MOVEMENT_DURATION)
-        )]
-        
-        goal.goal_tolerance = [JointTolerance(name=name, position=0.01) for name in Station.joint_names]
-        # goal.goal_time_tolerance = Duration(sec=2)
+        positions = [self._z_pos, new_shoulder, new_elbow]
+        goal = build_goal(JOINT_NAMES, positions, duration_sec=MOVEMENT_DURATION)
         
         fut = self._act_client.send_goal_async(goal)
         fut.add_done_callback(self._goal_response_cb)

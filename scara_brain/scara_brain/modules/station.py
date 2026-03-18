@@ -1,7 +1,8 @@
 from control_msgs.action import FollowJointTrajectory
 from control_msgs.msg import JointTolerance
-from trajectory_msgs.msg import JointTrajectoryPoint
-from builtin_interfaces.msg import Duration
+from scara_brain.constants import MOVEMENT_DURATION
+from scara_brain.constants import JOINT_NAMES
+from scara_brain.utils.arm_movement import build_goal
 
 
 class Station:
@@ -18,22 +19,9 @@ class Station:
         
         
     def get_traj_gnd_height(self):
-        return self._create_traj(self.pick_height)
+        positions = [self.pick_height, self.pos_shoulder, self.pos_elbow]
+        return build_goal(JOINT_NAMES, positions, duration_sec=MOVEMENT_DURATION)
 
     def get_traj_mid_height(self):
-        return self._create_traj(self.mid_height)
-
-    def _create_traj(self, height):
-        goal = FollowJointTrajectory.Goal()
-        
-        goal.trajectory.joint_names = Station.joint_names
-        
-        goal.trajectory.points = [JointTrajectoryPoint(
-            positions=[height, self.pos_shoulder, self.pos_elbow],
-            time_from_start=Duration(sec=Station.movement_duration)
-        )]
-        
-        goal.goal_tolerance = [JointTolerance(name=name, position=0.01) for name in Station.joint_names]
-        # goal.goal_time_tolerance = Duration(sec=2)
-        
-        return goal
+        positions = [self.mid_height, self.pos_shoulder, self.pos_elbow]
+        return build_goal(JOINT_NAMES, positions, duration_sec=MOVEMENT_DURATION)

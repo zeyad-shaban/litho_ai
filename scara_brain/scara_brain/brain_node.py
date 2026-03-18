@@ -14,12 +14,10 @@ class BrainNode(Node):
         super().__init__("brain_node")
         self.get_logger().info(f"brain_node Started")
         
-        self.joint_names: list[str] = ['column1_carriage1_joint', 'carriage1_shoulder_joint', 'shoulder_elbow_joint']
-        
         self.stations: list[Station] = [
-            Station('wafer_stack',    mid_height=0.4, pick_height=0.1, pos_shoulder=0.735133, pos_elbow=0.7916810, running_time=0),
-            Station('spinner',        mid_height=0.4, pick_height=0.1, pos_shoulder=2.261947, pos_elbow=0.0000000, running_time=5),
-            Station('dlp_microscope', mid_height=0.4, pick_height=0.1, pos_shoulder=2.827433, pos_elbow=0.6785840, running_time=5),
+            Station('wafer_stack',    mid_height=0.4, pick_height=0.1, pos_shoulder=0.7351330, pos_elbow=0.7916810, running_time=0),
+            Station('spinner',        mid_height=0.4, pick_height=0.1, pos_shoulder=2.2619470, pos_elbow=0.0000000, running_time=5),
+            Station('dlp_microscope', mid_height=0.4, pick_height=0.1, pos_shoulder=2.8274330, pos_elbow=0.6785840, running_time=5),
             Station('dev',            mid_height=0.4, pick_height=0.1, pos_shoulder=-2.375044, pos_elbow=0.508938, running_time=5),
             Station('inspection',     mid_height=0.4, pick_height=0.1, pos_shoulder=-1.300619, pos_elbow=1.074425, running_time=5),
         ]

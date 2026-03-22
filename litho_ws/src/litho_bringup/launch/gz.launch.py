@@ -16,7 +16,7 @@ def generate_launch_description():
     gz_args = LaunchConfiguration('gz_args', default='')
 
     # World Path
-    world_sdf_path = "empty.sdf" # PathJoinSubstitution([FindPackageShare('litho_bringup', 'worlds', 'world.sdf')])
+    world_sdf_path = PathJoinSubstitution([FindPackageShare('litho_bringup'), 'worlds', 'world.sdf'])
     
     # Get URDF via xacro
     robot_description_content = Command(

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from litho_brain.trees import litho_tree
 import rclpy
+import py_trees
 from rclpy.node import Node
 
 class BrainNode(Node):
@@ -17,6 +18,14 @@ class BrainNode(Node):
         
     def _tick(self):
         self.root.tick_once()
+        
+        if self.root.status == py_trees.common.Status.SUCCESS:
+            self.get_logger().info("Tree completed successfully!")
+            self._tick_timer.cancel()
+        elif self.root.status == py_trees.common.Status.FAILURE:
+            self.get_logger().error("Tree failed!")
+            self._tick_timer.cancel()
+
 
 
 def main(args=None):

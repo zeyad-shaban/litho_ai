@@ -24,7 +24,7 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'litho_brain = litho_brain.litho_brain:main'
+            'litho_brain = litho_brain.brain_node:main'
         ],
     },
 )

@@ -11,8 +11,8 @@ class AutoFocusNode(Node):
         super().__init__("auto_focus_node")
         self.get_logger().info(f"auto_focus_node Started")
         
-        self.declare_parameter('debug_display', True)
-        self._debug_display = self.get_parameter('debug_display').value
+        self.declare_parameter('debug_autofocus', True)
+        self._debug_autofocus = self.get_parameter('debug_autofocus').value
 
         self._img_sub = self.create_subscription(Image, '/camera/image', self._img_callback, 10)
         self._sharpness_pub = self.create_publisher(Float64, 'autofocus/sharpness', 10)
@@ -28,12 +28,12 @@ class AutoFocusNode(Node):
         self._sharpness_pub.publish(Float64(data=sharpness))
 
         
-        if self._debug_display:
+        if self._debug_autofocus:
             display = cv2.normalize(laplacian, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U) # type: ignore
             cv2.putText(display, f"Sharpness: {sharpness:.2f}", (10, 30), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
             cv2.imshow('autofocus_laplacian', display)
-            cv2.imshow('autofocus_camera', img)
+            # cv2.imshow('autofocus_camera', img)
             cv2.waitKey(1)
 
         

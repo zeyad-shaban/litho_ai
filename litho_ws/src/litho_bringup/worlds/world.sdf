@@ -18,88 +18,10 @@
       <shadows>true</shadows>
     </scene>
 
-    <model name="wafer">
+    <include>
+      <uri>model://wafer</uri>
       <pose>0 0 0.086 0 0 0</pose>
-      <link name="wafer_link">
-
-        <!-- Wafer body -->
-        <visual name="wafer_body">
-          <geometry>
-            <cylinder>
-              <radius>0.05</radius>
-              <length>0.000525</length>
-            </cylinder>
-          </geometry>
-          <material>
-            <ambient>0.2 0.25 0.3 1</ambient>
-            <diffuse>0.3 0.35 0.4 1</diffuse>
-            <specular>0.8 0.8 0.9 1</specular>
-          </material>
-        </visual>
-
-        <!-- Alignment mark 1 — center cross horizontal bar -->
-        <visual name="mark1_h">
-          <pose>0 0 0.0003 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.002 0.0004 0.0001</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.9 0.9 0.1 1</ambient>
-          </material>
-        </visual>
-
-        <!-- Alignment mark 1 — center cross vertical bar -->
-        <visual name="mark1_v">
-          <pose>0 0 0.0003 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.0004 0.002 0.0001</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.9 0.9 0.1 1</ambient>
-          </material>
-        </visual>
-
-        <!-- Alignment mark 2 — offset cross for die stepping -->
-        <visual name="mark2_h">
-          <pose>0.02 0.02 0.0003 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.002 0.0004 0.0001</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.9 0.9 0.1 1</ambient>
-          </material>
-        </visual>
-        <visual name="mark2_v">
-          <pose>0.02 0.02 0.0003 0 0 0</pose>
-          <geometry>
-            <box>
-              <size>0.0004 0.002 0.0001</size>
-            </box>
-          </geometry>
-          <material>
-            <ambient>0.9 0.9 0.1 1</ambient>
-          </material>
-        </visual>
-
-        <collision name="c">
-          <geometry>
-            <cylinder>
-              <radius>0.05</radius>
-              <length>0.000525</length>
-            </cylinder>
-          </geometry>
-        </collision>
-        <inertial>
-          <mass>0.01</mass>
-        </inertial>
-      </link>
-    </model>
+    </include>
 
     <model name='ground_plane'>
       <static>true</static>

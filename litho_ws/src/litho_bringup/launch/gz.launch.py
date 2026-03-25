@@ -1,5 +1,6 @@
+from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription
+from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
 from launch.actions import RegisterEventHandler
 from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
@@ -8,9 +9,13 @@ from launch.substitutions import Command, FindExecutable, LaunchConfiguration, P
 
 from launch_ros.actions import Node
 from launch_ros.substitutions import FindPackageShare
+import os
 
 
 def generate_launch_description():
+    set_gz_resource_path = SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', 
+        os.path.join(get_package_share_directory('litho_bringup'), '..', '..', '..', '..', '..', 'models'))
+    
     # Launch Arguments
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
     gz_args = LaunchConfiguration('gz_args', default='')
@@ -90,6 +95,7 @@ def generate_launch_description():
     )
 
     return LaunchDescription([
+        set_gz_resource_path,
         # Launch gazebo environment
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(

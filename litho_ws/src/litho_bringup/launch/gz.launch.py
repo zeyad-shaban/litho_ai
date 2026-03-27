@@ -1,7 +1,7 @@
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument, IncludeLaunchDescription, SetEnvironmentVariable
-from launch.actions import RegisterEventHandler
+from launch.actions import RegisterEventHandler, ExecuteProcess
 from launch.conditions import IfCondition
 from launch.event_handlers import OnProcessExit
 from launch.launch_description_sources import PythonLaunchDescriptionSource
@@ -13,8 +13,18 @@ import os
 
 
 def generate_launch_description():
-    set_gz_resource_path = SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', 
-        os.path.join(get_package_share_directory('litho_bringup'), '..', '..', '..', '..', '..', 'models'))
+    models_path = os.path.normpath(os.path.join(get_package_share_directory('litho_bringup'), '..', '..', '..', '..', '..', 'models'))
+    generate_wafer_sdf = ExecuteProcess(
+        cmd=[
+            'python3',
+            os.path.join(models_path, 'wafer', 'model_gen.py'),
+            '--output',
+            os.path.join(models_path, 'wafer', 'model.sdf')
+        ],
+        output='screen'
+    )
+    
+    set_gz_resource_path = SetEnvironmentVariable('GZ_SIM_RESOURCE_PATH', models_path)
     
     # Launch Arguments
     use_sim_time = LaunchConfiguration('use_sim_time', default=True)
@@ -96,6 +106,8 @@ def generate_launch_description():
 
     return LaunchDescription([
         set_gz_resource_path,
+        generate_wafer_sdf,
+        
         # Launch gazebo environment
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource(

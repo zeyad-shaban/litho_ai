@@ -1,13 +1,20 @@
 <?xml version="1.0"?>
 <sdf version="1.9">
-  <model name="wafer">
+  <model name="wafer_grid">
     <link name="link">
-      <visual name="visual">
+
+      <visual name="wafer_visual">
         <geometry>
-          <mesh>
-            <uri>SiliconWafer.glb</uri>
-          </mesh>
+          <cylinder>
+            <radius>0.05</radius>
+            <length>0.0005</length>
+          </cylinder>
         </geometry>
+        <material>
+          <ambient>0.6 0.6 0.7 1</ambient>
+          <diffuse>0.6 0.6 0.7 1</diffuse>
+          <specular>0.2 0.2 0.2 1</specular>
+        </material>
       </visual>
 
       <collision name="collision">
@@ -21,7 +28,616 @@
 
       <inertial>
         <mass>0.01</mass>
+        <inertia>
+          <ixx>6.250208333333334e-06</ixx>
+          <iyy>6.250208333333334e-06</iyy>
+          <izz>1.2500000000000002e-05</izz>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyz>0</iyz>
+        </inertia>
       </inertial>
+
+      <visual name="cross_h_-0.02_-0.02">
+        <pose>-0.02 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.02_-0.02">
+        <pose>-0.02 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.02_-0.01">
+        <pose>-0.02 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.02_-0.01">
+        <pose>-0.02 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.02_0.0">
+        <pose>-0.02 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.02_0.0">
+        <pose>-0.02 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.02_0.009999999999999998">
+        <pose>-0.02 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.02_0.009999999999999998">
+        <pose>-0.02 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.02_0.02">
+        <pose>-0.02 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.02_0.02">
+        <pose>-0.02 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.01_-0.02">
+        <pose>-0.01 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.01_-0.02">
+        <pose>-0.01 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.01_-0.01">
+        <pose>-0.01 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.01_-0.01">
+        <pose>-0.01 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.01_0.0">
+        <pose>-0.01 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.01_0.0">
+        <pose>-0.01 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.01_0.009999999999999998">
+        <pose>-0.01 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.01_0.009999999999999998">
+        <pose>-0.01 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_-0.01_0.02">
+        <pose>-0.01 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_-0.01_0.02">
+        <pose>-0.01 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.0_-0.02">
+        <pose>0.0 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.0_-0.02">
+        <pose>0.0 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.0_-0.01">
+        <pose>0.0 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.0_-0.01">
+        <pose>0.0 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.0_0.0">
+        <pose>0.0 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.0_0.0">
+        <pose>0.0 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.0_0.009999999999999998">
+        <pose>0.0 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.0_0.009999999999999998">
+        <pose>0.0 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.0_0.02">
+        <pose>0.0 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.0_0.02">
+        <pose>0.0 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.009999999999999998_-0.02">
+        <pose>0.009999999999999998 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.009999999999999998_-0.02">
+        <pose>0.009999999999999998 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.009999999999999998_-0.01">
+        <pose>0.009999999999999998 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.009999999999999998_-0.01">
+        <pose>0.009999999999999998 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.009999999999999998_0.0">
+        <pose>0.009999999999999998 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.009999999999999998_0.0">
+        <pose>0.009999999999999998 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.009999999999999998_0.009999999999999998">
+        <pose>0.009999999999999998 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.009999999999999998_0.009999999999999998">
+        <pose>0.009999999999999998 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.009999999999999998_0.02">
+        <pose>0.009999999999999998 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.009999999999999998_0.02">
+        <pose>0.009999999999999998 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.02_-0.02">
+        <pose>0.02 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.02_-0.02">
+        <pose>0.02 -0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.02_-0.01">
+        <pose>0.02 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.02_-0.01">
+        <pose>0.02 -0.01 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.02_0.0">
+        <pose>0.02 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.02_0.0">
+        <pose>0.02 0.0 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.02_0.009999999999999998">
+        <pose>0.02 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.02_0.009999999999999998">
+        <pose>0.02 0.009999999999999998 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_h_0.02_0.02">
+        <pose>0.02 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>0.0002 5e-05 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
+      <visual name="cross_v_0.02_0.02">
+        <pose>0.02 0.02 0.000255 0 0 0</pose>
+        <geometry>
+          <box>
+            <size>5e-05 0.0002 1e-05</size>
+          </box>
+        </geometry>
+        <material>
+          <ambient>0 0 0 1</ambient>
+          <diffuse>0 0 0 1</diffuse>
+        </material>
+      </visual>
     </link>
   </model>
 </sdf>

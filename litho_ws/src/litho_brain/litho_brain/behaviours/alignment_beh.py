@@ -1,16 +1,14 @@
-from litho_brain.constants import X_STAGE_NAME, Y_STAGE_NAME
+from litho_brain.constants import X_STAGE_NAME, Y_STAGE_NAME, STAGE_STABLE_TIMEOUT, STAGE_JOINT_NAMES, STAGE_Z_BOUNDS
 from rclpy.action.client import ActionClient, ClientGoalHandle
 from control_msgs.action import FollowJointTrajectory
 from litho_brain.utils.movement_utils import build_goal
 from py_trees.common import Status
-import rclpy
 from rclpy.node import Node
 import py_trees
 from scipy.optimize import minimize_scalar
 from std_msgs.msg import Float64
 from sensor_msgs.msg import JointState
 import threading
-from litho_brain.constants import STAGE_JOINT_NAMES, STAGE_Z_BOUNDS
 import time
 
 class AutoFocusBeh(py_trees.behaviour.Behaviour):
@@ -115,7 +113,7 @@ class AutoFocusBeh(py_trees.behaviour.Behaviour):
         
         self._goal_done.wait(timeout=10.0)
         self._sharpness_ready.clear()
-        time.sleep(2.0)
+        time.sleep(STAGE_STABLE_TIMEOUT)
         self._sharpness_ready.wait(timeout=3.0)
         
         self.node.get_logger().info(f"{self.name} Brent's iter at z_pos: {z:.7f}, sharpness: {self._last_sharpness:.2f}")

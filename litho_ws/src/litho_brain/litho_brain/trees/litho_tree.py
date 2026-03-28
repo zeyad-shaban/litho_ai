@@ -1,4 +1,5 @@
-from litho_brain.behaviours.alignment_beh import AutoFocusBeh, GoToOriginBeh
+from litho_brain.behaviours.movement_beh import GoToOriginBeh
+from litho_brain.behaviours.focus_beh import AutoFocusBeh
 import py_trees
 from py_trees.composites import Sequence, Selector, Parallel
 import rclpy

@@ -65,7 +65,7 @@ class AutoFocusNode(Node):
             cv2.putText(display, f"Sharpness: {sharpness:.2f}", (10, 30), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.7, (255, 255, 255), 2)
             cv2.imshow('autofocus_laplacian', display)
-            cv2.imshow('autofocus_camera', img)
+            # cv2.imshow('autofocus_camera', img)
             cv2.waitKey(1)
             
 

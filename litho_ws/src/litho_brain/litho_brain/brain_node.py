@@ -2,6 +2,8 @@
 from litho_brain.trees import litho_tree
 import rclpy
 import py_trees
+from rclpy.executors import MultiThreadedExecutor
+from rclpy.callback_groups import ReentrantCallbackGroup
 from rclpy.node import Node
 
 class BrainNode(Node):
@@ -30,8 +32,10 @@ class BrainNode(Node):
 
 def main(args=None):
     rclpy.init(args=args)
+    
     node = BrainNode()
     rclpy.spin(node)
+    
     rclpy.shutdown()
 
 if __name__ == '__main__':

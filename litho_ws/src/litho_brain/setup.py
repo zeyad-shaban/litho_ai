@@ -29,6 +29,7 @@ setup(
         'console_scripts': [
             'litho_brain = litho_brain.brain_node:main',
             'autofocus_node = litho_brain.nodes.autofocus_node:main',
+            'autoalignment_node = litho_brain.nodes.autoalignment_node:main',
         ],
     },
 )

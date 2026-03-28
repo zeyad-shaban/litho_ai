@@ -7,13 +7,20 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-    debug_autofocus = LaunchConfiguration('debug_autofocus', default='false')
+    debug_visuals = LaunchConfiguration('debug_visuals', default='false')
 
     autofocus_node = Node(
         package='litho_brain',
         executable='autofocus_node',
         output='screen',
-        parameters=[{'debug_autofocus': debug_autofocus}]
+        parameters=[{'debug_autofocus': debug_visuals}]
+    )
+    
+    autoalignment_node = Node(
+        package='litho_brain',
+        executable='autoalignment_node',
+        output='screen',
+        parameters=[{'debug_autoalignment': debug_visuals}]
     )
 
     brain_node = Node(
@@ -26,5 +33,6 @@ def generate_launch_description():
         DeclareLaunchArgument('debug_autofocus', default_value='false',
                               description='Show autofocus debug window'),
         autofocus_node,
+        autoalignment_node,
         brain_node,
     ])
